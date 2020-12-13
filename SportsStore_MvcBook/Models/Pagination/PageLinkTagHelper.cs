@@ -3,30 +3,29 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using SportsStore_MvcBook.Models;
 
-namespace SportsStore_MvcBook.Infrastructure
+namespace SportsStore_MvcBook.Models.Pagination
 {
     [HtmlTargetElement("div", Attributes = "page-model")]
-    public class PaginationTagHelper : TagHelper
+    public class PageLinkTagHelper : TagHelper
     {
         private IUrlHelperFactory urlHelperFactory;
 
-        public PaginationTagHelper(IUrlHelperFactory urlHelperFactory)
+        public PageLinkTagHelper(IUrlHelperFactory helperFactory)
         {
-            this.urlHelperFactory = urlHelperFactory;
+            urlHelperFactory = helperFactory;
         }
 
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext ViewContext { get; set; }
-        public Pagination Pagination { get; set; }
+        public PagingInfo PageModel { get; set; }
         public string PageAction { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
             TagBuilder result = new TagBuilder("div");
-            for (int i = 1; i < Pagination.TotalPages; i++)
+            for (int i = 1; i <= PageModel.TotalPages; i++)
             {
                 TagBuilder tag = new TagBuilder("a");
                 tag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
