@@ -11,11 +11,15 @@ namespace SportsStore_MvcBook.Controllers
     {
         private IProductRepository repository;
 
+        public int PageSize = 4;
+
         public ProductController(IProductRepository repository)
         {
             this.repository = repository;
         }
 
-        public IActionResult List() => View(repository.Products);
+        public IActionResult List(int page = 1) => View(repository.Products.OrderBy(p => p.ProductId)
+                                                                           .Skip((page - 1) * PageSize)
+                                                                           .Take(PageSize));
     }
 }
