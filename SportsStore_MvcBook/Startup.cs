@@ -42,6 +42,8 @@ namespace SportsStore_MvcBook
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("pagination", "Products/Page{page}", new { controller = "Product", action = "List" });
+
                 endpoints.MapControllerRoute("default", "{controller=Product}/{action=List}/{id?}");
             });
         }
