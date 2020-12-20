@@ -9,5 +9,6 @@ namespace SportsStore_MvcBook.Models.Pagination
     {
         public IEnumerable<Product> Products { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public string CurrentCategory { get; set; }
     }
 }

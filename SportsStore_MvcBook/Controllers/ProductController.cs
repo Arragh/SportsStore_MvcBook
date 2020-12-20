@@ -16,17 +16,20 @@ namespace SportsStore_MvcBook.Controllers
             this.repository = repository;
         }
 
-        public IActionResult List(int page = 1) => View(new ProductListViewModel
+        public IActionResult List(string category, int page = 1) => View(new ProductListViewModel
         {
-            Products = repository.Products.OrderBy(p => p.ProductId)
+            Products = repository.Products.Where(p => category == null || p.Category == category)
+                                          .OrderBy(p => p.ProductId)
                                           .Skip((page - 1) * PageSize)
                                           .Take(PageSize),
             PagingInfo = new PagingInfo
             {
                 CurrentPage = page,
                 ItemsPerPage = PageSize,
-                TotalItems = repository.Products.Count()
-            }
+                //TotalItems = repository.Products.Where(p => category == null || p.Category == category).Count()
+                TotalItems = category == null ? repository.Products.Count() : repository.Products.Where(p => p.Category == category).Count()
+            },
+            CurrentCategory = category
         });
     }
 }
