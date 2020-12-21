@@ -41,6 +41,7 @@ namespace SportsStore_MvcBook
 
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
