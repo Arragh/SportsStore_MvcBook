@@ -27,6 +27,7 @@ namespace SportsStore_MvcBook
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IOrderRepository, EFOrderRepository>();
             services.AddControllersWithViews();
             services.AddMemoryCache();
             services.AddSession();
