@@ -16,6 +16,9 @@ namespace SportsStore_MvcBook.Models
         [BindNever]
         public ICollection<CartLine> Lines { get; set; }
 
+        [BindNever]
+        public bool Shipped { get; set; }
+
         [Required(ErrorMessage = "Введите имя пользователя")]
         public string Name { get; set; }
 
