@@ -18,6 +18,20 @@ namespace SportsStore_MvcBook.Controllers
 
         public ViewResult Index() => View(repository.Products);
 
+        [HttpGet]
         public ViewResult Edit(int productId) => View(repository.Products.FirstOrDefault(p => p.ProductId == productId));
+
+        [HttpPost]
+        public IActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.SaveProduct(product);
+                TempData["message"] = $"Изменения для {product.Name} сохранены";
+                return RedirectToAction("Index");
+            }
+            return View(product);
+        }
+
     }
 }

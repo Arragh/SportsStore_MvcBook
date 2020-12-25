@@ -31,7 +31,6 @@ namespace SportsStore_MvcBook.Models
                     dbEntry.Price = product.Price;
                     dbEntry.Category = product.Category;
                 }
-                //context.Products.Update(dbEntry); // хз надо это или нет
             }
             context.SaveChanges();
         }
