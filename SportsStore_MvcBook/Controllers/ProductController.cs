@@ -8,12 +8,14 @@ namespace SportsStore_MvcBook.Controllers
     public class ProductController : Controller
     {
         private IProductRepository repository;
+        private AppIdentityDbContext context;
 
         public int PageSize = 4;
 
-        public ProductController(IProductRepository repository)
+        public ProductController(IProductRepository repository, AppIdentityDbContext context)
         {
             this.repository = repository;
+            this.context = context;
         }
 
         public IActionResult List(string category, int page = 1) => View(new ProductListViewModel
